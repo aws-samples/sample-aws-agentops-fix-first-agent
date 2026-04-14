@@ -1,0 +1,61 @@
+# Environment variables
+.env
+.env.local
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environments
+venv/
+ENV/
+env/
+.venv/
+
+# IDE
+.vscode/
+recipeRecommendationAgent/.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+**/set_env_variables_DONOT_CHECKIN.bat
+**/set_env_variables_DONOT_CHECKIN.sh
+
+# Generated config (contains deployment-specific values)
+fixFirstAgentWeb/static/config.js
+
+# CDK outputs
+cdk/cdk.out/
+cdk/node_modules/
+cdk/dist/
+
+# Kiro IDE
+.kiro/
+
+# AIDLC docs
+aidlc-docs/
+
+# Agent build output (packaged zip dependencies)
+fixFirstAgent/build/

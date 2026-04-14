@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fix First Agent</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-header">
+            <h1>🔧 Fix First Agent</h1>
+            <div class="header-controls">
+                <span class="user-info" id="userInfo"></span>
+                <button class="new-session-btn" onclick="startNewSession()">New Session</button>
+                <button class="logout-btn" onclick="logout()">Logout</button>
+            </div>
+        </div>
+
+        <div class="chat-messages" id="chatMessages">
+            <div class="welcome-message">
+                👋 Welcome! I'm your Fix First Agent. Describe your appliance issue and I'll help you troubleshoot it.
+            </div>
+        </div>
+
+        <div class="loading" id="loading">🤖 Fix First Agent is thinking...</div>
+
+        <div class="chat-input">
+            <input type="text" id="messageInput"
+                   placeholder="Describe your appliance issue..."
+                   aria-label="Chat message"
+                   onkeypress="if(event.key==='Enter') sendMessage()">
+            <button class="send-btn" id="sendBtn" onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+
+    <script src="config.js"></script>
+    <script src="auth.js"></script>
+    <script src="agent.js"></script>
+    <script>
+        // Guard: redirect to login if not authenticated
+        if (!Auth.isAuthenticated()) {
+            window.location.href = 'login.html';
+        }
+        document.getElementById('userInfo').textContent = 'Welcome, ' + (Auth.getUsername() || 'User') + '!';
+
+        function addMessage(content, isUser) {
+            const container = document.getElementById('chatMessages');
+            const welcome = container.querySelector('.welcome-message');
+            if (welcome) welcome.remove();
+
+            const div = document.createElement('div');
+            div.className = 'message ' + (isUser ? 'user' : 'bot');
+
+            const avatar = document.createElement('div');
+            avatar.className = 'message-avatar';
+            avatar.textContent = isUser ? 'U' : '🤖';
+
+            const msg = document.createElement('div');
+            msg.className = 'message-content';
+            if (!isUser && typeof content === 'string') {
+                // Sanitize then format: escape HTML first, then apply safe line breaks
+                const escaped = content
+                    .replace(/&/g, '&amp;')
+                    .replace(/</g, '&lt;')
+                    .replace(/>/g, '&gt;')
+                    .replace(/"/g, '&quot;');
+                msg.innerHTML = escaped
+                    .replace(/\n\n/g, '<br><br>')
+                    .replace(/\n/g, '<br>');
+            } else {
+                msg.textContent = content;
+            }
+
+            div.appendChild(avatar);
+            div.appendChild(msg);
+            container.appendChild(div);
+            container.scrollTop = container.scrollHeight;
+        }
+
+        function setLoading(show) {
+            document.getElementById('loading').style.display = show ? 'block' : 'none';
+            document.getElementById('sendBtn').disabled = show;
+            document.getElementById('messageInput').disabled = show;
+        }
+
+        async function sendMessage() {
+            const input = document.getElementById('messageInput');
+            const text = input.value.trim();
+            if (!text) return;
+            if (text.length > 4000) {
+                addMessage('Error: Message is too long (max 4000 characters).', false);
+                return;
+            }
+
+            addMessage(text, true);
+            input.value = '';
+            setLoading(true);
+
+            try {
+                const data = await Agent.invokeWithRetry(text);
+                let reply = data;
+                if (typeof data === 'object' && data !== null) {
+                    if (data.content && Array.isArray(data.content)) {
+                        reply = data.content.map(i => typeof i === 'string' ? i : i.text || JSON.stringify(i)).join('\n');
+                    } else if (data.text) { reply = data.text; }
+                    else if (data.message) { reply = data.message; }
+                    else if (typeof data === 'object') { reply = JSON.stringify(data, null, 2); }
+                }
+                addMessage(reply, false);
+            } catch (err) {
+                if (err.message.includes('Session expired')) {
+                    Auth.signOut();
+                    window.location.href = 'login.html';
+                    return;
+                }
+                addMessage('Error: ' + err.message, false);
+            } finally {
+                setLoading(false);
+                input.focus();
+            }
+        }
+
+        function startNewSession() {
+            Agent.resetSession();
+            const container = document.getElementById('chatMessages');
+            container.innerHTML = '<div class="welcome-message">👋 New session started! Describe your appliance issue.</div>';
+        }
+
+        function logout() {
+            if (confirm('Are you sure you want to logout?')) {
+                Auth.signOut();
+                window.location.href = 'login.html';
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => document.getElementById('messageInput').focus());
+    </script>
+</body>
+</html>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fix First Agent - Sign Up</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="auth-container">
+        <div class="auth-header">
+            <h1>🔧 Fix First Agent</h1>
+            <p>Create your account</p>
+        </div>
+
+        <div id="alert" class="alert hidden"></div>
+
+        <form id="registerForm">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" required minlength="3" maxlength="50" autocomplete="username">
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required autocomplete="email">
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required minlength="8" autocomplete="new-password">
+                <div class="password-requirements">
+                    Must be 8+ characters with uppercase, lowercase, number, and special character.
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="confirm_password">Confirm Password</label>
+                <input type="password" id="confirm_password" name="confirm_password" required autocomplete="new-password">
+            </div>
+            <button type="submit" class="auth-btn" id="submitBtn">Sign Up</button>
+        </form>
+
+        <form id="confirmForm" class="hidden">
+            <div class="form-group">
+                <label for="confirmCode">Verification Code</label>
+                <input type="text" id="confirmCode" name="confirmCode" required minlength="6" maxlength="6" autocomplete="one-time-code" placeholder="Enter 6-digit code from your email">
+            </div>
+            <button type="submit" class="auth-btn" id="confirmBtn">Verify Account</button>
+            <button type="button" class="auth-btn" id="resendBtn" style="margin-top:8px;background:#6c757d;">Resend Code</button>
+        </form>
+
+        <div class="auth-links">
+            <p>Already have an account? <a href="login.html">Sign in here</a></p>
+        </div>
+    </div>
+
+    <script src="config.js"></script>
+    <script src="auth.js"></script>
+    <script>
+        let registeredUsername = '';
+
+        document.getElementById('registerForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('submitBtn');
+            const alert = document.getElementById('alert');
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirm_password').value;
+
+            if (password !== confirmPassword) {
+                alert.textContent = 'Passwords do not match.';
+                alert.className = 'alert error';
+                return;
+            }
+
+            btn.disabled = true;
+            btn.textContent = 'Signing up...';
+            alert.classList.add('hidden');
+
+            try {
+                registeredUsername = document.getElementById('username').value;
+                await Auth.signUp(
+                    registeredUsername,
+                    document.getElementById('email').value,
+                    password
+                );
+                // Show confirmation form, hide registration form
+                document.getElementById('registerForm').classList.add('hidden');
+                document.getElementById('confirmForm').classList.remove('hidden');
+                alert.textContent = 'Check your email for a verification code.';
+                alert.className = 'alert success';
+            } catch (err) {
+                alert.textContent = err.message;
+                alert.className = 'alert error';
+            } finally {
+                btn.disabled = false;
+                btn.textContent = 'Sign Up';
+            }
+        });
+
+        document.getElementById('confirmForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('confirmBtn');
+            const alert = document.getElementById('alert');
+            btn.disabled = true;
+            btn.textContent = 'Verifying...';
+            alert.classList.add('hidden');
+
+            try {
+                await Auth.confirmSignUp(
+                    registeredUsername,
+                    document.getElementById('confirmCode').value
+                );
+                alert.textContent = 'Account verified! Redirecting to sign in...';
+                alert.className = 'alert success';
+                setTimeout(() => { window.location.href = 'login.html'; }, 2000);
+            } catch (err) {
+                alert.textContent = err.message;
+                alert.className = 'alert error';
+            } finally {
+                btn.disabled = false;
+                btn.textContent = 'Verify Account';
+            }
+        });
+
+        document.getElementById('resendBtn').addEventListener('click', async () => {
+            const alert = document.getElementById('alert');
+            try {
+                await Auth.resendConfirmationCode(registeredUsername);
+                alert.textContent = 'Verification code resent. Check your email.';
+                alert.className = 'alert success';
+            } catch (err) {
+                alert.textContent = err.message;
+                alert.className = 'alert error';
+            }
+        });
+    </script>
+</body>
+</html>
