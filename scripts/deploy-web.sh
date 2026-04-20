@@ -35,10 +35,10 @@ bash scripts/generate-config.sh "${APP_NAME}"
 
 echo ""
 echo "=== Step 2: Deploy WebHosting stack (S3 + CloudFront) ==="
-cd cdk
+cd fixFirstAgentWeb/cdk
 npm install
 npx cdk deploy fixFirstAgent-WebHostingStack --require-approval never
-cd ..
+cd ../..
 
 echo ""
 echo "=== Step 3: Retrieve CloudFront URL ==="

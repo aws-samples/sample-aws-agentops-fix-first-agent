@@ -49,9 +49,9 @@ Thumbs.db
 fixFirstAgentWeb/static/config.js
 
 # CDK outputs
-cdk/cdk.out/
-cdk/node_modules/
-cdk/dist/
+fixFirstAgentWeb/cdk/cdk.out/
+fixFirstAgentWeb/cdk/node_modules/
+fixFirstAgentWeb/cdk/dist/
 
 # Kiro IDE
 .kiro/
