@@ -59,15 +59,16 @@
             const msg = document.createElement('div');
             msg.className = 'message-content';
             if (!isUser && typeof content === 'string') {
-                // Sanitize then format: escape HTML first, then apply safe line breaks
-                const escaped = content
-                    .replace(/&/g, '&amp;')
-                    .replace(/</g, '&lt;')
-                    .replace(/>/g, '&gt;')
-                    .replace(/"/g, '&quot;');
-                msg.innerHTML = escaped
-                    .replace(/\n\n/g, '<br><br>')
-                    .replace(/\n/g, '<br>');
+                // Build DOM nodes for line breaks instead of using innerHTML
+                const paragraphs = content.split(/\n\n/);
+                paragraphs.forEach((para, i) => {
+                    if (i > 0) { msg.appendChild(document.createElement('br')); msg.appendChild(document.createElement('br')); }
+                    const lines = para.split(/\n/);
+                    lines.forEach((line, j) => {
+                        if (j > 0) msg.appendChild(document.createElement('br'));
+                        msg.appendChild(document.createTextNode(line));
+                    });
+                });
             } else {
                 msg.textContent = content;
             }
@@ -124,7 +125,11 @@
         function startNewSession() {
             Agent.resetSession();
             const container = document.getElementById('chatMessages');
-            container.innerHTML = '<div class="welcome-message">👋 New session started! Describe your appliance issue.</div>';
+            while (container.firstChild) container.removeChild(container.firstChild);
+            const welcome = document.createElement('div');
+            welcome.className = 'welcome-message';
+            welcome.textContent = '\uD83D\uDC4B New session started! Describe your appliance issue.';
+            container.appendChild(welcome);
         }
 
         function logout() {

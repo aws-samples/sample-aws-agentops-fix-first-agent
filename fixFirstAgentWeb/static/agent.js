@@ -10,7 +10,7 @@ const Agent = (() => {
     return `https://bedrock-agentcore.${APP_CONFIG.REGION}.amazonaws.com/runtimes/${escapedArn}/invocations?qualifier=DEFAULT`;
   }
 
-  async function invoke(prompt, bearerToken, username) {
+  async function invoke(prompt, bearerToken, userId) {
     const url = getEndpointUrl();
     const response = await fetch(url, {
       method: 'POST',
@@ -19,7 +19,7 @@ const Agent = (() => {
         'Content-Type': 'application/json',
         'X-Amzn-Trace-Id': `trace-id-${crypto.randomUUID()}`,
         'X-Amzn-Bedrock-AgentCore-Runtime-Session-Id': sessionId,
-        'X-Amzn-Bedrock-AgentCore-Runtime-Custom-User-Id': username || 'UNKNOWN',
+        'X-Amzn-Bedrock-AgentCore-Runtime-Custom-User-Id': userId || 'UNKNOWN',
       },
       body: JSON.stringify({ prompt }),
     });
@@ -36,16 +36,16 @@ const Agent = (() => {
    */
   async function invokeWithRetry(prompt) {
     let token = Auth.getAccessToken();
-    const username = Auth.getUsername();
+    const userId = Auth.getUserId();
 
     try {
-      return await invoke(prompt, token, username);
+      return await invoke(prompt, token, userId);
     } catch (err) {
       if (err.message.includes('401') || err.message.toLowerCase().includes('unauthorized')) {
         // Try refreshing the token once
         try {
           token = await Auth.refreshSession();
-          return await invoke(prompt, token, username);
+          return await invoke(prompt, token, userId);
         } catch {
           throw new Error('Session expired. Please sign in again.');
         }

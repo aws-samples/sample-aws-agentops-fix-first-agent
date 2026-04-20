@@ -42,6 +42,8 @@ Thumbs.db
 
 **/set_env_variables_DONOT_CHECKIN.bat
 **/set_env_variables_DONOT_CHECKIN.sh
+**/set_env_variables.sh
+**/set_env_variables.bat
 
 # Generated config (contains deployment-specific values)
 fixFirstAgentWeb/static/config.js
