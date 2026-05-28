@@ -1,0 +1,62 @@
+{
+  "/fixFirstAgent-Prerequisites-Secondary/NameServers": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "NameServers"
+    }
+  ],
+  "/fixFirstAgent-Prerequisites-Secondary/HostedZoneId": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "HostedZoneId"
+    }
+  ],
+  "/fixFirstAgent-Prerequisites-Secondary/CertificateArn": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CertificateArn"
+    }
+  ],
+  "/fixFirstAgent-Prerequisites-Secondary/BootstrapVersion": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "BootstrapVersion"
+    }
+  ],
+  "/fixFirstAgent-Prerequisites-Secondary/CheckBootstrapVersion": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CheckBootstrapVersion"
+    }
+  ],
+  "/fixFirstAgent-Prerequisites-Secondary/HostedZone/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "HostedZoneDB99F866"
+    }
+  ],
+  "/fixFirstAgent-Prerequisites-Secondary/Certificate/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "Certificate4E7ABB08"
+    }
+  ],
+  "/fixFirstAgent-Prerequisites-Secondary/SSM-HostedZoneId/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "SSMHostedZoneId3AFD0CEE"
+    }
+  ],
+  "/fixFirstAgent-Prerequisites-Secondary/SSM-CertificateArn/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "SSMCertificateArnAE62DDFC"
+    }
+  ],
+  "/fixFirstAgent-Prerequisites-Secondary/CDKMetadata/Default": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CDKMetadata"
+    }
+  ]
+}

@@ -1,0 +1,139 @@
+{
+ "Resources": {
+  "HostedZoneDB99F866": {
+   "Type": "AWS::Route53::HostedZone",
+   "Properties": {
+    "HostedZoneConfig": {
+     "Comment": "Hosted zone for fixFirstAgent multi-region agent"
+    },
+    "Name": "fixfirst.example.com."
+   },
+   "Metadata": {
+    "aws:cdk:path": "fixFirstAgent-Prerequisites-Primary/HostedZone/Resource"
+   }
+  },
+  "Certificate4E7ABB08": {
+   "Type": "AWS::CertificateManager::Certificate",
+   "Properties": {
+    "DomainName": "api.fixfirst.example.com",
+    "DomainValidationOptions": [
+     {
+      "DomainName": "api.fixfirst.example.com",
+      "HostedZoneId": {
+       "Ref": "HostedZoneDB99F866"
+      }
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "fixFirstAgent-multi-region-cert"
+     }
+    ],
+    "ValidationMethod": "DNS"
+   },
+   "Metadata": {
+    "aws:cdk:path": "fixFirstAgent-Prerequisites-Primary/Certificate/Resource"
+   }
+  },
+  "SSMHostedZoneId3AFD0CEE": {
+   "Type": "AWS::SSM::Parameter",
+   "Properties": {
+    "Description": "Route 53 hosted zone ID for multi-region routing",
+    "Name": "/fixFirstAgent/multi-region/hosted-zone-id",
+    "Type": "String",
+    "Value": {
+     "Ref": "HostedZoneDB99F866"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "fixFirstAgent-Prerequisites-Primary/SSM-HostedZoneId/Resource"
+   }
+  },
+  "SSMCertificateArnAE62DDFC": {
+   "Type": "AWS::SSM::Parameter",
+   "Properties": {
+    "Description": "ACM certificate ARN for the agent API custom domain",
+    "Name": "/fixFirstAgent/multi-region/certificate-arn",
+    "Type": "String",
+    "Value": {
+     "Ref": "Certificate4E7ABB08"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "fixFirstAgent-Prerequisites-Primary/SSM-CertificateArn/Resource"
+   }
+  },
+  "CDKMetadata": {
+   "Type": "AWS::CDK::Metadata",
+   "Properties": {
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/02OsQ7CMAxEv4U9NVWhA3MXNhBsLCikbuVCEuQ4MET5dxohUabTOz3proGmraFe6XeoTH+vHnSDdBZt7mqurol9FGw3kPY+CPYX71B1g1soK4MsNJDRglY7PSJD6pau6H+YVQi2TDC58ahZWxTkIv0g54KHKM8oWTnfI0xh/Wq2sJufToGo4uiELMLpmx+87dt7xgAAAA=="
+   },
+   "Metadata": {
+    "aws:cdk:path": "fixFirstAgent-Prerequisites-Primary/CDKMetadata/Default"
+   }
+  }
+ },
+ "Outputs": {
+  "NameServers": {
+   "Description": "Add these NS records to your domain registrar to delegate DNS to this hosted zone",
+   "Value": {
+    "Fn::Join": [
+     ", ",
+     {
+      "Fn::GetAtt": [
+       "HostedZoneDB99F866",
+       "NameServers"
+      ]
+     }
+    ]
+   }
+  },
+  "HostedZoneId": {
+   "Description": "Route 53 hosted zone ID",
+   "Value": {
+    "Ref": "HostedZoneDB99F866"
+   }
+  },
+  "CertificateArn": {
+   "Description": "ACM certificate ARN in us-east-1",
+   "Value": {
+    "Ref": "Certificate4E7ABB08"
+   }
+  }
+ },
+ "Parameters": {
+  "BootstrapVersion": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/cdk-bootstrap/hnb659fds/version",
+   "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
+  }
+ },
+ "Rules": {
+  "CheckBootstrapVersion": {
+   "Assertions": [
+    {
+     "Assert": {
+      "Fn::Not": [
+       {
+        "Fn::Contains": [
+         [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+         ],
+         {
+          "Ref": "BootstrapVersion"
+         }
+        ]
+       }
+      ]
+     },
+     "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI."
+    }
+   ]
+  }
+ }
+}
