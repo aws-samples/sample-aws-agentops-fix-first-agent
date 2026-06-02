@@ -18,8 +18,9 @@ import requests as http_requests
 gateway_url = sys.argv[1]
 region = sys.argv[2]
 prompts_file = sys.argv[3]
+target_path = sys.argv[4] if len(sys.argv) > 4 else '/control/invocations'
 
-url = f'{gateway_url}/control/invocations'
+url = f'{gateway_url}{target_path}'
 print(f'Gateway endpoint: {url}')
 print(f'Region: {region}')
 print(f'Prompts file: {prompts_file}')

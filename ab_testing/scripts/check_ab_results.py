@@ -1,6 +1,8 @@
 """Check and display A/B test results with formatted output.
 
-Usage: python check_ab_results.py
+Usage:
+    python check_ab_results.py                    # reads /fixFirstAgent/ab-test-id
+    python check_ab_results.py config-ab-test-id  # reads /fixFirstAgent/config-ab-test-id
 """
 import json
 import subprocess
@@ -18,9 +20,10 @@ def run_cmd(cmd):
 
 REGION = run_cmd('aws configure get region') or 'us-east-1'
 APP_NAME = os.environ.get('APP_NAME', 'fixFirstAgent')
+PARAM_NAME = sys.argv[1] if len(sys.argv) > 1 else 'ab-test-id'
 
 AB_TEST_ID = run_cmd(
-    f'aws ssm get-parameter --name /{APP_NAME}/ab-test-id --query Parameter.Value --output text --region {REGION}'
+    f'aws ssm get-parameter --name /{APP_NAME}/{PARAM_NAME} --query Parameter.Value --output text --region {REGION}'
 )
 print(f'A/B Test ID: {AB_TEST_ID}')
 

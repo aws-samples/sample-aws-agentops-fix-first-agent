@@ -4,13 +4,14 @@
 # Uses curl --aws-sigv4 if available (Linux/macOS with curl >= 7.75).
 # Falls back to Python with botocore for SigV4 signing (Windows Git Bash).
 #
-# Usage: ./send_traffic.sh <gateway_url> <region> <prompts_file>
+# Usage: ./send_traffic.sh <gateway_url> <region> <prompts_file> [target_path]
 
 set -euo pipefail
 
 GATEWAY_URL="$1"
 REGION="$2"
 PROMPTS_FILE="$3"
+TARGET_PATH="${4:-/control/invocations}"
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 # Check if curl supports --aws-sigv4
@@ -22,12 +23,12 @@ fi
 
 if [ "$HAS_SIGV4" = false ]; then
     echo "curl --aws-sigv4 not available, using Python fallback..."
-    python3 "${SCRIPT_DIR}/send_traffic.py" "$GATEWAY_URL" "$REGION" "$PROMPTS_FILE" || \
-    python "${SCRIPT_DIR}/send_traffic.py" "$GATEWAY_URL" "$REGION" "$PROMPTS_FILE"
+    python3 "${SCRIPT_DIR}/send_traffic.py" "$GATEWAY_URL" "$REGION" "$PROMPTS_FILE" "$TARGET_PATH" || \
+    python "${SCRIPT_DIR}/send_traffic.py" "$GATEWAY_URL" "$REGION" "$PROMPTS_FILE" "$TARGET_PATH"
     exit $?
 fi
 
-URL="${GATEWAY_URL}/control/invocations"
+URL="${GATEWAY_URL}${TARGET_PATH}"
 echo "Gateway endpoint: ${URL}"
 echo "Region: ${REGION}"
 echo "Prompts file: ${PROMPTS_FILE}"

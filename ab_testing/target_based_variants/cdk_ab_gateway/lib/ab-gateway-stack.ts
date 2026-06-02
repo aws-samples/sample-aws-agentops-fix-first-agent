@@ -15,6 +15,13 @@ export interface ABGatewayStackProps extends cdk.StackProps {
 /**
  * ILocalBundling implementation that runs the create_ab_test.py script
  * locally during CDK synthesis/deployment.
+ *
+ * Why ILocalBundling?
+ * CDK CloudFormation types don't yet support HTTP gateway targets.
+ * This pattern executes a Python script locally during `cdk synth`/`cdk deploy`
+ * that creates the gateway, targets, and A/B test via boto3.
+ * All resource IDs (gateway URL, A/B test ID) are stored in SSM for use
+ * by subsequent steps (send traffic, check results, cleanup).
  */
 class LocalPythonExecutor implements cdk.ILocalBundling {
     private readonly env: Record<string, string>;
