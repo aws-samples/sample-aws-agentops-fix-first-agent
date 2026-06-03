@@ -26,6 +26,7 @@ if [ ! -d "node_modules" ]; then
     npm install
 fi
 
-npx cdk deploy fixFirstAgent-ABTestingStack --require-approval never
+echo "Starting CDK deploy (this may take 5-10 minutes with no output)..."
+npx --yes cdk deploy fixFirstAgent-ABTestingStack --require-approval never
 
 echo "Agent runtimes and evaluation configs deployed."

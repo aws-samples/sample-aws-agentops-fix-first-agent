@@ -36,9 +36,8 @@ echo "Control Eval: $CONTROL_EVAL_ARN"
 echo "Treatment Eval: $TREATMENT_EVAL_ARN"
 
 # Deploy gateway + targets + A/B test
-echo ""
-echo "=== Deploying gateway, targets, and A/B test ==="
-npx cdk deploy fixFirstAgent-ABGatewayStack --require-approval never \
+echo "Starting CDK deploy (this may take 5-10 minutes with no output)..."
+npx --yes cdk deploy fixFirstAgent-ABGatewayStack --require-approval never \
     -c "controlRuntimeArn=$CONTROL_RUNTIME_ARN" \
     -c "refinedRuntimeArn=$REFINED_RUNTIME_ARN" \
     -c "controlEvalArn=$CONTROL_EVAL_ARN" \

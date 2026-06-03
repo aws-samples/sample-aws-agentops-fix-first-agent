@@ -4,8 +4,6 @@
 # Auto-fixes what it can (uv, CDK bootstrap, pip packages).
 # Exit code: 0 if all prerequisites are met, 1 otherwise.
 
-cd ~/sample-aws-agentops-fix-first-agent/ab_testing
-
 set -o pipefail
 
 ALL_OK=true
@@ -60,9 +58,20 @@ if aws --version >/dev/null 2>&1; then
     if [ "$CLI_MAJOR" -ge 2 ] 2>/dev/null && [ "$CLI_MINOR" -ge 34 ] 2>/dev/null; then
         echo "[OK] AWS CLI: $CLI_VER"
     else
-        echo "[FAIL] AWS CLI $CLI_VER is too old. Need >= 2.34 for A/B test commands."
-        echo "   ACTION REQUIRED: Update from https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html"
-        ALL_OK=false
+        echo "[FIXING] AWS CLI $CLI_VER is too old. Need >= 2.34. Updating..."
+        curl -s "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o /tmp/awscliv2.zip \
+            && unzip -qo /tmp/awscliv2.zip -d /tmp \
+            && sudo /tmp/aws/install --update >/dev/null 2>&1 \
+            && rm -rf /tmp/awscliv2.zip /tmp/aws
+        CLI_VER=$(aws --version 2>&1 | awk '{print $1}' | cut -d/ -f2)
+        CLI_MINOR=$(echo "$CLI_VER" | cut -d. -f2)
+        if [ "$CLI_MINOR" -ge 34 ] 2>/dev/null; then
+            echo "[OK] AWS CLI updated to $CLI_VER"
+        else
+            echo "[FAIL] AWS CLI update failed. Current: $CLI_VER"
+            echo "   ACTION REQUIRED: Update manually from https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html"
+            ALL_OK=false
+        fi
     fi
 else
     echo "[FAIL] AWS CLI not found"
@@ -81,19 +90,9 @@ else
     ALL_OK=false
 fi
 
-# CDK bootstrapped
-CDK_STATUS=$(aws cloudformation describe-stacks --stack-name CDKToolkit --query 'Stacks[0].StackStatus' --output text 2>/dev/null)
-if echo "$CDK_STATUS" | grep -q "COMPLETE"; then
-    echo "[OK] CDK bootstrapped"
-else
-    echo "[FIXING] CDK not bootstrapped, running cdk bootstrap..."
-    if npx cdk bootstrap >/dev/null 2>&1; then
-        echo "[OK] CDK bootstrapped"
-    else
-        echo "[FAIL] CDK bootstrap failed"
-        ALL_OK=false
-    fi
-fi
+# CDK bootstrapped (skip check — SageMaker role typically lacks cloudformation:DescribeStacks)
+# If CDK is not bootstrapped in your account/region, run manually: npx cdk bootstrap
+echo "[INFO] CDK bootstrap check skipped (verify manually if needed: npx cdk bootstrap)"
 
 # Bedrock model access
 MODELS=$(aws bedrock list-foundation-models --by-output-modality TEXT --query 'modelSummaries[].modelId' --output json 2>/dev/null)
@@ -112,9 +111,28 @@ else
     ALL_OK=false
 fi
 
-# pip packages
+# boto3/botocore — must be new enough to know bedrock-agentcore-control service
 PYTHON_CMD=$(command -v python3 || command -v python)
-for PKG in requests botocore; do
+BOTO_OK=$("$PYTHON_CMD" -c "import botocore; from botocore.session import Session; Session().create_client('bedrock-agentcore-control', region_name='us-east-1')" 2>/dev/null && echo yes || echo no)
+if [ "$BOTO_OK" = "yes" ]; then
+    BOTO_VER=$("$PYTHON_CMD" -c "import boto3; print(boto3.__version__)" 2>/dev/null)
+    echo "[OK] boto3/botocore: $BOTO_VER (bedrock-agentcore-control supported)"
+else
+    echo "[FIXING] boto3/botocore too old (missing bedrock-agentcore-control). Upgrading..."
+    "$PYTHON_CMD" -m pip install --upgrade boto3 botocore >/dev/null 2>&1
+    BOTO_OK=$("$PYTHON_CMD" -c "import botocore; from botocore.session import Session; Session().create_client('bedrock-agentcore-control', region_name='us-east-1')" 2>/dev/null && echo yes || echo no)
+    if [ "$BOTO_OK" = "yes" ]; then
+        BOTO_VER=$("$PYTHON_CMD" -c "import boto3; print(boto3.__version__)" 2>/dev/null)
+        echo "[OK] boto3/botocore upgraded to $BOTO_VER"
+    else
+        echo "[FAIL] boto3/botocore upgrade failed"
+        echo "   ACTION REQUIRED: Run 'pip install --upgrade boto3 botocore'"
+        ALL_OK=false
+    fi
+fi
+
+# pip packages
+for PKG in requests; do
     if "$PYTHON_CMD" -c "import $PKG" 2>/dev/null; then
         echo "[OK] $PKG package"
     else

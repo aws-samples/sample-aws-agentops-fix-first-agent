@@ -18,7 +18,18 @@ def run_cmd(cmd):
     return r.stdout.strip()
 
 
-REGION = run_cmd('aws configure get region') or 'us-east-1'
+def get_region():
+    """Resolve AWS region from environment or CLI config."""
+    for var in ('AWS_REGION', 'AWS_DEFAULT_REGION'):
+        if os.environ.get(var):
+            return os.environ[var]
+    r = subprocess.run('aws configure get region', capture_output=True, text=True, shell=True)
+    if r.returncode == 0 and r.stdout.strip():
+        return r.stdout.strip()
+    return 'us-east-1'
+
+
+REGION = get_region()
 APP_NAME = os.environ.get('APP_NAME', 'fixFirstAgent')
 PARAM_NAME = sys.argv[1] if len(sys.argv) > 1 else 'ab-test-id'
 

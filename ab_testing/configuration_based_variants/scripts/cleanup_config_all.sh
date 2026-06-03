@@ -22,7 +22,8 @@ echo ""
 # Step 2: Destroy CDK stack
 echo "=== Step 2/2: Destroying CDK stack ==="
 cd "$CDK_DIR"
-npx cdk destroy fixFirstAgent-ConfigABTestingStack --force 2>&1 || echo "  (stack may not exist, continuing)"
+npm install
+npx --yes cdk destroy fixFirstAgent-ConfigABTestingStack --force 2>&1 || echo "  (stack may not exist, continuing)"
 
 echo ""
 echo "=== Cleanup Complete ==="

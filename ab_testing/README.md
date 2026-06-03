@@ -220,3 +220,31 @@ ab_testing/
 - AWS CLI >= 2.34
 - CDK bootstrapped (`npx cdk bootstrap`)
 - Bedrock model access: `amazon.nova-lite-v1:0` and `anthropic.claude-sonnet-4-5-20250929-v1:0`
+
+### SageMaker Execution Role Permissions
+
+The SageMaker execution role must have access to the following services:
+
+- `cloudformation:*`
+- `s3:*`
+- `iam:*`
+- `ssm:*`
+- `ecr:*`
+- `bedrock:*`
+- `bedrock-agentcore:*`
+- `bedrock-agentcore-control:*`
+- `logs:*`
+- `sts:*`
+
+For workshop/burner accounts, attaching `AdministratorAccess` to the SageMaker execution role is the simplest approach.
+
+### SageMaker JupyterLab Setup
+
+The lab notebooks require a **Bash kernel**. Before opening any notebook, run the following in the JupyterLab terminal:
+
+```bash
+pip install bash_kernel
+python -m bash_kernel.install --sys-prefix
+```
+
+Then close and reopen the notebook. When prompted, select **Bash** as the kernel.

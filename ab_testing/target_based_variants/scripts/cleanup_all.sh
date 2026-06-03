@@ -39,11 +39,11 @@ echo "=== Step 2/2: Destroying CDK stacks ==="
 
 echo "Destroying fixFirstAgent-ABGatewayStack..."
 cd "$GW_CDK_DIR"
-npx cdk destroy fixFirstAgent-ABGatewayStack --force 2>&1 || echo "  (stack may not exist, continuing)"
+npx --yes cdk destroy fixFirstAgent-ABGatewayStack --force 2>&1 || echo "  (stack may not exist, continuing)"
 
 echo "Destroying fixFirstAgent-ABTestingStack..."
 cd "$CDK_DIR"
-npx cdk destroy fixFirstAgent-ABTestingStack --force 2>&1 || echo "  (stack may not exist, continuing)"
+npx --yes cdk destroy fixFirstAgent-ABTestingStack --force 2>&1 || echo "  (stack may not exist, continuing)"
 
 echo ""
 echo "=== Cleanup Complete ==="
