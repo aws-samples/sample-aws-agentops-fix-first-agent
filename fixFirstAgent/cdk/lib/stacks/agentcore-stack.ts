@@ -287,7 +287,7 @@ export class AgentCoreStack extends cdk.Stack {
                             prefix: agentCodeAsset.s3ObjectKey,
                         },
                     },
-                    entryPoint: ['main.py'],
+                    entryPoint: ['opentelemetry-instrument', 'main.py'],
                     runtime: 'PYTHON_3_12',
                 },
             },
@@ -298,7 +298,7 @@ export class AgentCoreStack extends cdk.Stack {
             },
             roleArn: runtimeRole.roleArn,
             requestHeaderConfiguration: {
-                requestHeaderAllowlist: ["X-Amzn-Bedrock-AgentCore-Runtime-Custom-User-Id"]
+                requestHeaderAllowlist: ["X-Amzn-Bedrock-AgentCore-Runtime-Custom-User-Id", "baggage", "traceparent"]
             },
             authorizerConfiguration:{
                 customJwtAuthorizer:{

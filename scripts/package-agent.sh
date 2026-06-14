@@ -33,5 +33,15 @@ uv pip install \
 echo "Copying agent source code..."
 cp -r "${AGENT_DIR}/src/"* "${BUILD_DIR}/"
 
+# Ensure bin/ is merged (opentelemetry-instrument wrapper)
+mkdir -p "${BUILD_DIR}/bin"
+if [ -d "${AGENT_DIR}/src/bin" ]; then
+    cp -f "${AGENT_DIR}/src/bin/opentelemetry-instrument" "${BUILD_DIR}/bin/" 2>/dev/null || true
+    cp -f "${AGENT_DIR}"/src/bin/* "${BUILD_DIR}/bin/" 2>/dev/null || true
+fi
+
+# Remove Windows .exe wrappers if any
+find "${BUILD_DIR}/bin" -name "*.exe" -delete 2>/dev/null || true
+
 echo "=== Package ready at ${BUILD_DIR} ==="
 du -sh "${BUILD_DIR}"
