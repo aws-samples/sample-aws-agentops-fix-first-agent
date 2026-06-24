@@ -1,0 +1,838 @@
+{
+ "Resources": {
+  "ProxyFunctionServiceRole74D3CF07": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "fixFirstAgent-RegionalProxy-Secondary/ProxyFunction/ServiceRole/Resource"
+   }
+  },
+  "ProxyFunctionServiceRoleDefaultPolicyC0E84FE7": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": "bedrock-agentcore:InvokeAgentRuntime",
+       "Effect": "Allow",
+       "Resource": ""
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "ProxyFunctionServiceRoleDefaultPolicyC0E84FE7",
+    "Roles": [
+     {
+      "Ref": "ProxyFunctionServiceRole74D3CF07"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "fixFirstAgent-RegionalProxy-Secondary/ProxyFunction/ServiceRole/DefaultPolicy/Resource"
+   }
+  },
+  "ProxyFunction99E5E7D2": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": {
+      "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-us-west-2"
+     },
+     "S3Key": "8341388c5c70a423637ae4d69002e20fcb2dfdef61fd834f9cf0f55b5b4e9f82.zip"
+    },
+    "Environment": {
+     "Variables": {
+      "AGENT_RUNTIME_ARN": "",
+      "COGNITO_USER_POOL_ID": "",
+      "COGNITO_REGION": "us-east-1"
+     }
+    },
+    "FunctionName": "fixFirstAgent-agentcore-proxy",
+    "Handler": "proxy_handler.handler",
+    "MemorySize": 256,
+    "Role": {
+     "Fn::GetAtt": [
+      "ProxyFunctionServiceRole74D3CF07",
+      "Arn"
+     ]
+    },
+    "Runtime": "python3.12",
+    "Timeout": 120
+   },
+   "DependsOn": [
+    "ProxyFunctionServiceRoleDefaultPolicyC0E84FE7",
+    "ProxyFunctionServiceRole74D3CF07"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "fixFirstAgent-RegionalProxy-Secondary/ProxyFunction/Resource",
+    "aws:asset:path": "asset.8341388c5c70a423637ae4d69002e20fcb2dfdef61fd834f9cf0f55b5b4e9f82",
+    "aws:asset:is-bundled": false,
+    "aws:asset:property": "Code"
+   }
+  },
+  "ProxyFunctionLogRetention807DFA90": {
+   "Type": "Custom::LogRetention",
+   "Properties": {
+    "ServiceToken": {
+     "Fn::GetAtt": [
+      "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aFD4BFC8A",
+      "Arn"
+     ]
+    },
+    "LogGroupName": {
+     "Fn::Join": [
+      "",
+      [
+       "/aws/lambda/",
+       {
+        "Ref": "ProxyFunction99E5E7D2"
+       }
+      ]
+     ]
+    },
+    "RetentionInDays": 7
+   },
+   "Metadata": {
+    "aws:cdk:path": "fixFirstAgent-RegionalProxy-Secondary/ProxyFunction/LogRetention/Resource"
+   }
+  },
+  "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRole9741ECFB": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "fixFirstAgent-RegionalProxy-Secondary/LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8a/ServiceRole/Resource"
+   }
+  },
+  "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRoleDefaultPolicyADDA7DEB": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "logs:PutRetentionPolicy",
+        "logs:DeleteRetentionPolicy"
+       ],
+       "Effect": "Allow",
+       "Resource": "*"
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRoleDefaultPolicyADDA7DEB",
+    "Roles": [
+     {
+      "Ref": "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRole9741ECFB"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "fixFirstAgent-RegionalProxy-Secondary/LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8a/ServiceRole/DefaultPolicy/Resource"
+   }
+  },
+  "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aFD4BFC8A": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Handler": "index.handler",
+    "Runtime": "nodejs22.x",
+    "Timeout": 900,
+    "Code": {
+     "S3Bucket": {
+      "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-us-west-2"
+     },
+     "S3Key": "2819175352ad1ce0dae768e83fc328fb70fb5f10b4a8ff0ccbcb791f02b0716d.zip"
+    },
+    "Role": {
+     "Fn::GetAtt": [
+      "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRole9741ECFB",
+      "Arn"
+     ]
+    }
+   },
+   "DependsOn": [
+    "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRoleDefaultPolicyADDA7DEB",
+    "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRole9741ECFB"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "fixFirstAgent-RegionalProxy-Secondary/LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8a/Resource",
+    "aws:asset:path": "asset.2819175352ad1ce0dae768e83fc328fb70fb5f10b4a8ff0ccbcb791f02b0716d",
+    "aws:asset:is-bundled": false,
+    "aws:asset:property": "Code"
+   }
+  },
+  "ProxyApi0DF2D7AE": {
+   "Type": "AWS::ApiGateway::RestApi",
+   "Properties": {
+    "Description": "Multi-region proxy for fixFirstAgent AgentCore Runtime",
+    "EndpointConfiguration": {
+     "Types": [
+      "REGIONAL"
+     ]
+    },
+    "Name": "fixFirstAgent-multi-region-proxy"
+   },
+   "Metadata": {
+    "aws:cdk:path": "fixFirstAgent-RegionalProxy-Secondary/ProxyApi/Resource"
+   }
+  },
+  "ProxyApiCloudWatchRole6287CBD0": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "apigateway.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AmazonAPIGatewayPushToCloudWatchLogs"
+       ]
+      ]
+     }
+    ]
+   },
+   "UpdateReplacePolicy": "Retain",
+   "DeletionPolicy": "Retain",
+   "Metadata": {
+    "aws:cdk:path": "fixFirstAgent-RegionalProxy-Secondary/ProxyApi/CloudWatchRole/Resource"
+   }
+  },
+  "ProxyApiAccount987F032E": {
+   "Type": "AWS::ApiGateway::Account",
+   "Properties": {
+    "CloudWatchRoleArn": {
+     "Fn::GetAtt": [
+      "ProxyApiCloudWatchRole6287CBD0",
+      "Arn"
+     ]
+    }
+   },
+   "DependsOn": [
+    "ProxyApi0DF2D7AE"
+   ],
+   "UpdateReplacePolicy": "Retain",
+   "DeletionPolicy": "Retain",
+   "Metadata": {
+    "aws:cdk:path": "fixFirstAgent-RegionalProxy-Secondary/ProxyApi/Account"
+   }
+  },
+  "ProxyApiDeployment6107D4F325fd457150c20c00bfc4649ec57363f9": {
+   "Type": "AWS::ApiGateway::Deployment",
+   "Properties": {
+    "Description": "Multi-region proxy for fixFirstAgent AgentCore Runtime",
+    "RestApiId": {
+     "Ref": "ProxyApi0DF2D7AE"
+    }
+   },
+   "DependsOn": [
+    "ProxyApihealthGETE6A1E381",
+    "ProxyApihealthOPTIONSF469747F",
+    "ProxyApihealth5220A3AB",
+    "ProxyApiinvokeOPTIONS0CD83525",
+    "ProxyApiinvokePOSTACA9B8C5",
+    "ProxyApiinvokeD608DA46",
+    "ProxyApiOPTIONSF54C92CA"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "fixFirstAgent-RegionalProxy-Secondary/ProxyApi/Deployment/Resource",
+    "aws:cdk:do-not-refactor": true
+   }
+  },
+  "ProxyApiDeploymentStagev1CC81822F": {
+   "Type": "AWS::ApiGateway::Stage",
+   "Properties": {
+    "DeploymentId": {
+     "Ref": "ProxyApiDeployment6107D4F325fd457150c20c00bfc4649ec57363f9"
+    },
+    "MethodSettings": [
+     {
+      "DataTraceEnabled": false,
+      "HttpMethod": "*",
+      "ResourcePath": "/*",
+      "ThrottlingBurstLimit": 200,
+      "ThrottlingRateLimit": 100
+     }
+    ],
+    "RestApiId": {
+     "Ref": "ProxyApi0DF2D7AE"
+    },
+    "StageName": "v1"
+   },
+   "DependsOn": [
+    "ProxyApiAccount987F032E"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "fixFirstAgent-RegionalProxy-Secondary/ProxyApi/DeploymentStage.v1/Resource"
+   }
+  },
+  "ProxyApiOPTIONSF54C92CA": {
+   "Type": "AWS::ApiGateway::Method",
+   "Properties": {
+    "ApiKeyRequired": false,
+    "AuthorizationType": "NONE",
+    "HttpMethod": "OPTIONS",
+    "Integration": {
+     "IntegrationResponses": [
+      {
+       "ResponseParameters": {
+        "method.response.header.Access-Control-Allow-Headers": "'Content-Type,Authorization,X-Amzn-Trace-Id,X-Session-Id,X-User-Id'",
+        "method.response.header.Access-Control-Allow-Origin": "'*'",
+        "method.response.header.Access-Control-Allow-Methods": "'POST,OPTIONS'"
+       },
+       "StatusCode": "204"
+      }
+     ],
+     "RequestTemplates": {
+      "application/json": "{ statusCode: 200 }"
+     },
+     "Type": "MOCK"
+    },
+    "MethodResponses": [
+     {
+      "ResponseParameters": {
+       "method.response.header.Access-Control-Allow-Headers": true,
+       "method.response.header.Access-Control-Allow-Origin": true,
+       "method.response.header.Access-Control-Allow-Methods": true
+      },
+      "StatusCode": "204"
+     }
+    ],
+    "ResourceId": {
+     "Fn::GetAtt": [
+      "ProxyApi0DF2D7AE",
+      "RootResourceId"
+     ]
+    },
+    "RestApiId": {
+     "Ref": "ProxyApi0DF2D7AE"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "fixFirstAgent-RegionalProxy-Secondary/ProxyApi/Default/OPTIONS/Resource"
+   }
+  },
+  "ProxyApiinvokeD608DA46": {
+   "Type": "AWS::ApiGateway::Resource",
+   "Properties": {
+    "ParentId": {
+     "Fn::GetAtt": [
+      "ProxyApi0DF2D7AE",
+      "RootResourceId"
+     ]
+    },
+    "PathPart": "invoke",
+    "RestApiId": {
+     "Ref": "ProxyApi0DF2D7AE"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "fixFirstAgent-RegionalProxy-Secondary/ProxyApi/Default/invoke/Resource"
+   }
+  },
+  "ProxyApiinvokeOPTIONS0CD83525": {
+   "Type": "AWS::ApiGateway::Method",
+   "Properties": {
+    "ApiKeyRequired": false,
+    "AuthorizationType": "NONE",
+    "HttpMethod": "OPTIONS",
+    "Integration": {
+     "IntegrationResponses": [
+      {
+       "ResponseParameters": {
+        "method.response.header.Access-Control-Allow-Headers": "'Content-Type,Authorization,X-Amzn-Trace-Id,X-Session-Id,X-User-Id'",
+        "method.response.header.Access-Control-Allow-Origin": "'*'",
+        "method.response.header.Access-Control-Allow-Methods": "'POST,OPTIONS'"
+       },
+       "StatusCode": "204"
+      }
+     ],
+     "RequestTemplates": {
+      "application/json": "{ statusCode: 200 }"
+     },
+     "Type": "MOCK"
+    },
+    "MethodResponses": [
+     {
+      "ResponseParameters": {
+       "method.response.header.Access-Control-Allow-Headers": true,
+       "method.response.header.Access-Control-Allow-Origin": true,
+       "method.response.header.Access-Control-Allow-Methods": true
+      },
+      "StatusCode": "204"
+     }
+    ],
+    "ResourceId": {
+     "Ref": "ProxyApiinvokeD608DA46"
+    },
+    "RestApiId": {
+     "Ref": "ProxyApi0DF2D7AE"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "fixFirstAgent-RegionalProxy-Secondary/ProxyApi/Default/invoke/OPTIONS/Resource"
+   }
+  },
+  "ProxyApiinvokePOSTApiPermissionfixFirstAgentRegionalProxySecondaryProxyApi0169B316POSTinvoke48FFBE2A": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "ProxyFunction99E5E7D2",
+      "Arn"
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":execute-api:us-west-2:",
+       {
+        "Ref": "AWS::AccountId"
+       },
+       ":",
+       {
+        "Ref": "ProxyApi0DF2D7AE"
+       },
+       "/",
+       {
+        "Ref": "ProxyApiDeploymentStagev1CC81822F"
+       },
+       "/POST/invoke"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "fixFirstAgent-RegionalProxy-Secondary/ProxyApi/Default/invoke/POST/ApiPermission.fixFirstAgentRegionalProxySecondaryProxyApi0169B316.POST..invoke"
+   }
+  },
+  "ProxyApiinvokePOSTApiPermissionTestfixFirstAgentRegionalProxySecondaryProxyApi0169B316POSTinvoke1E2C4B0F": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "ProxyFunction99E5E7D2",
+      "Arn"
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":execute-api:us-west-2:",
+       {
+        "Ref": "AWS::AccountId"
+       },
+       ":",
+       {
+        "Ref": "ProxyApi0DF2D7AE"
+       },
+       "/test-invoke-stage/POST/invoke"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "fixFirstAgent-RegionalProxy-Secondary/ProxyApi/Default/invoke/POST/ApiPermission.Test.fixFirstAgentRegionalProxySecondaryProxyApi0169B316.POST..invoke"
+   }
+  },
+  "ProxyApiinvokePOSTACA9B8C5": {
+   "Type": "AWS::ApiGateway::Method",
+   "Properties": {
+    "AuthorizationType": "NONE",
+    "HttpMethod": "POST",
+    "Integration": {
+     "IntegrationHttpMethod": "POST",
+     "IntegrationResponses": [
+      {
+       "StatusCode": "200"
+      }
+     ],
+     "Type": "AWS_PROXY",
+     "Uri": {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":apigateway:us-west-2:lambda:path/2015-03-31/functions/",
+        {
+         "Fn::GetAtt": [
+          "ProxyFunction99E5E7D2",
+          "Arn"
+         ]
+        },
+        "/invocations"
+       ]
+      ]
+     }
+    },
+    "ResourceId": {
+     "Ref": "ProxyApiinvokeD608DA46"
+    },
+    "RestApiId": {
+     "Ref": "ProxyApi0DF2D7AE"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "fixFirstAgent-RegionalProxy-Secondary/ProxyApi/Default/invoke/POST/Resource"
+   }
+  },
+  "ProxyApihealth5220A3AB": {
+   "Type": "AWS::ApiGateway::Resource",
+   "Properties": {
+    "ParentId": {
+     "Fn::GetAtt": [
+      "ProxyApi0DF2D7AE",
+      "RootResourceId"
+     ]
+    },
+    "PathPart": "health",
+    "RestApiId": {
+     "Ref": "ProxyApi0DF2D7AE"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "fixFirstAgent-RegionalProxy-Secondary/ProxyApi/Default/health/Resource"
+   }
+  },
+  "ProxyApihealthOPTIONSF469747F": {
+   "Type": "AWS::ApiGateway::Method",
+   "Properties": {
+    "ApiKeyRequired": false,
+    "AuthorizationType": "NONE",
+    "HttpMethod": "OPTIONS",
+    "Integration": {
+     "IntegrationResponses": [
+      {
+       "ResponseParameters": {
+        "method.response.header.Access-Control-Allow-Headers": "'Content-Type,Authorization,X-Amzn-Trace-Id,X-Session-Id,X-User-Id'",
+        "method.response.header.Access-Control-Allow-Origin": "'*'",
+        "method.response.header.Access-Control-Allow-Methods": "'POST,OPTIONS'"
+       },
+       "StatusCode": "204"
+      }
+     ],
+     "RequestTemplates": {
+      "application/json": "{ statusCode: 200 }"
+     },
+     "Type": "MOCK"
+    },
+    "MethodResponses": [
+     {
+      "ResponseParameters": {
+       "method.response.header.Access-Control-Allow-Headers": true,
+       "method.response.header.Access-Control-Allow-Origin": true,
+       "method.response.header.Access-Control-Allow-Methods": true
+      },
+      "StatusCode": "204"
+     }
+    ],
+    "ResourceId": {
+     "Ref": "ProxyApihealth5220A3AB"
+    },
+    "RestApiId": {
+     "Ref": "ProxyApi0DF2D7AE"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "fixFirstAgent-RegionalProxy-Secondary/ProxyApi/Default/health/OPTIONS/Resource"
+   }
+  },
+  "ProxyApihealthGETE6A1E381": {
+   "Type": "AWS::ApiGateway::Method",
+   "Properties": {
+    "AuthorizationType": "NONE",
+    "HttpMethod": "GET",
+    "Integration": {
+     "IntegrationResponses": [
+      {
+       "ResponseTemplates": {
+        "application/json": "{\"status\":\"healthy\",\"region\":\"us-west-2\",\"timestamp\":\"$context.requestTime\"}"
+       },
+       "StatusCode": "200"
+      }
+     ],
+     "RequestTemplates": {
+      "application/json": "{\"statusCode\": 200}"
+     },
+     "Type": "MOCK"
+    },
+    "MethodResponses": [
+     {
+      "ResponseModels": {
+       "application/json": "Empty"
+      },
+      "StatusCode": "200"
+     }
+    ],
+    "ResourceId": {
+     "Ref": "ProxyApihealth5220A3AB"
+    },
+    "RestApiId": {
+     "Ref": "ProxyApi0DF2D7AE"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "fixFirstAgent-RegionalProxy-Secondary/ProxyApi/Default/health/GET/Resource"
+   }
+  },
+  "CustomDomain21DD44B6": {
+   "Type": "AWS::ApiGateway::DomainName",
+   "Properties": {
+    "DomainName": "api.fixfirst.example.com",
+    "EndpointConfiguration": {
+     "Types": [
+      "REGIONAL"
+     ]
+    },
+    "RegionalCertificateArn": "",
+    "SecurityPolicy": "TLS_1_2"
+   },
+   "Metadata": {
+    "aws:cdk:path": "fixFirstAgent-RegionalProxy-Secondary/CustomDomain/Resource"
+   }
+  },
+  "BasePathMappingF35F2767": {
+   "Type": "AWS::ApiGateway::BasePathMapping",
+   "Properties": {
+    "DomainName": {
+     "Ref": "CustomDomain21DD44B6"
+    },
+    "RestApiId": {
+     "Ref": "ProxyApi0DF2D7AE"
+    },
+    "Stage": {
+     "Ref": "ProxyApiDeploymentStagev1CC81822F"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "fixFirstAgent-RegionalProxy-Secondary/BasePathMapping/Resource"
+   }
+  },
+  "SSMApiRegionalDomainNameE4BABBB1": {
+   "Type": "AWS::SSM::Parameter",
+   "Properties": {
+    "Description": "API Gateway custom domain regional DNS name (for Route 53 alias)",
+    "Name": "/fixFirstAgent/multi-region/api-regional-domain-name",
+    "Type": "String",
+    "Value": {
+     "Fn::GetAtt": [
+      "CustomDomain21DD44B6",
+      "RegionalDomainName"
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "fixFirstAgent-RegionalProxy-Secondary/SSM-ApiRegionalDomainName/Resource"
+   }
+  },
+  "SSMApiRegionalHostedZoneId368B9AB4": {
+   "Type": "AWS::SSM::Parameter",
+   "Properties": {
+    "Description": "API Gateway custom domain hosted zone ID (for Route 53 alias)",
+    "Name": "/fixFirstAgent/multi-region/api-regional-hosted-zone-id",
+    "Type": "String",
+    "Value": {
+     "Fn::GetAtt": [
+      "CustomDomain21DD44B6",
+      "RegionalHostedZoneId"
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "fixFirstAgent-RegionalProxy-Secondary/SSM-ApiRegionalHostedZoneId/Resource"
+   }
+  },
+  "CDKMetadata": {
+   "Type": "AWS::CDK::Metadata",
+   "Properties": {
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/11Ry07DMBD8Fu6uqQIcOKZUnChE4QOqrbOkbvyIshuqKMq/YzspRJx2Ztb7Gmcye9rK7R1caaOqZmP0SY6fDKoRQTqOBuypAjm+9k6x9k68fLk1LrCzmiiwSWiwciy9wZhIsfBGqyG9S2gS9HAEImSSeQyBy12vGuQdEArja5Jvvi6R0aUR0OoaGK8whNZInLc6df+DuVK+dyz22Bo/2FAX1RUL19RppRmEUt93CtPAA/LZVzG5oFt2GTLjvbeg3TvYJK9Y7FEAnw/QttrVMftPCheTjY52gRTQhSrGLjlyI9MkkhdxvaXJ7+T1Oh89tz1PwvkK5YXuv7NH+Ry+7kJab7pggbYoyzn+ACiES2/XAQAA"
+   },
+   "Metadata": {
+    "aws:cdk:path": "fixFirstAgent-RegionalProxy-Secondary/CDKMetadata/Default"
+   }
+  }
+ },
+ "Outputs": {
+  "ProxyApiEndpoint2177970D": {
+   "Value": {
+    "Fn::Join": [
+     "",
+     [
+      "https://",
+      {
+       "Ref": "ProxyApi0DF2D7AE"
+      },
+      ".execute-api.us-west-2.",
+      {
+       "Ref": "AWS::URLSuffix"
+      },
+      "/",
+      {
+       "Ref": "ProxyApiDeploymentStagev1CC81822F"
+      },
+      "/"
+     ]
+    ]
+   }
+  },
+  "ApiGatewayUrl": {
+   "Description": "API Gateway URL (direct, not via custom domain)",
+   "Value": {
+    "Fn::Join": [
+     "",
+     [
+      "https://",
+      {
+       "Ref": "ProxyApi0DF2D7AE"
+      },
+      ".execute-api.us-west-2.",
+      {
+       "Ref": "AWS::URLSuffix"
+      },
+      "/",
+      {
+       "Ref": "ProxyApiDeploymentStagev1CC81822F"
+      },
+      "/"
+     ]
+    ]
+   }
+  },
+  "CustomDomainRegionalTarget": {
+   "Description": "Regional domain name for Route 53 alias target",
+   "Value": {
+    "Fn::GetAtt": [
+     "CustomDomain21DD44B6",
+     "RegionalDomainName"
+    ]
+   }
+  },
+  "CustomDomainHostedZoneId": {
+   "Description": "Hosted zone ID for Route 53 alias target",
+   "Value": {
+    "Fn::GetAtt": [
+     "CustomDomain21DD44B6",
+     "RegionalHostedZoneId"
+    ]
+   }
+  }
+ },
+ "Parameters": {
+  "BootstrapVersion": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/cdk-bootstrap/hnb659fds/version",
+   "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
+  }
+ },
+ "Rules": {
+  "CheckBootstrapVersion": {
+   "Assertions": [
+    {
+     "Assert": {
+      "Fn::Not": [
+       {
+        "Fn::Contains": [
+         [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+         ],
+         {
+          "Ref": "BootstrapVersion"
+         }
+        ]
+       }
+      ]
+     },
+     "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI."
+    }
+   ]
+  }
+ }
+}

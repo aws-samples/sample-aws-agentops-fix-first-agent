@@ -1,0 +1,194 @@
+{
+  "/fixFirstAgent-RegionalProxy-Secondary/ApiGatewayUrl": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ApiGatewayUrl"
+    }
+  ],
+  "/fixFirstAgent-RegionalProxy-Secondary/CustomDomainRegionalTarget": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CustomDomainRegionalTarget"
+    }
+  ],
+  "/fixFirstAgent-RegionalProxy-Secondary/CustomDomainHostedZoneId": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CustomDomainHostedZoneId"
+    }
+  ],
+  "/fixFirstAgent-RegionalProxy-Secondary/BootstrapVersion": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "BootstrapVersion"
+    }
+  ],
+  "/fixFirstAgent-RegionalProxy-Secondary/CheckBootstrapVersion": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CheckBootstrapVersion"
+    }
+  ],
+  "/fixFirstAgent-RegionalProxy-Secondary/ProxyFunction/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ProxyFunction99E5E7D2"
+    }
+  ],
+  "/fixFirstAgent-RegionalProxy-Secondary/LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8a/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aFD4BFC8A"
+    }
+  ],
+  "/fixFirstAgent-RegionalProxy-Secondary/ProxyApi/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ProxyApi0DF2D7AE"
+    }
+  ],
+  "/fixFirstAgent-RegionalProxy-Secondary/ProxyApi/Account": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ProxyApiAccount987F032E"
+    }
+  ],
+  "/fixFirstAgent-RegionalProxy-Secondary/ProxyApi/Endpoint": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ProxyApiEndpoint2177970D"
+    }
+  ],
+  "/fixFirstAgent-RegionalProxy-Secondary/CustomDomain/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CustomDomain21DD44B6"
+    }
+  ],
+  "/fixFirstAgent-RegionalProxy-Secondary/BasePathMapping/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "BasePathMappingF35F2767"
+    }
+  ],
+  "/fixFirstAgent-RegionalProxy-Secondary/SSM-ApiRegionalDomainName/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "SSMApiRegionalDomainNameE4BABBB1"
+    }
+  ],
+  "/fixFirstAgent-RegionalProxy-Secondary/SSM-ApiRegionalHostedZoneId/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "SSMApiRegionalHostedZoneId368B9AB4"
+    }
+  ],
+  "/fixFirstAgent-RegionalProxy-Secondary/CDKMetadata/Default": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CDKMetadata"
+    }
+  ],
+  "/fixFirstAgent-RegionalProxy-Secondary/ProxyFunction/ServiceRole/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ProxyFunctionServiceRole74D3CF07"
+    }
+  ],
+  "/fixFirstAgent-RegionalProxy-Secondary/ProxyFunction/LogRetention/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ProxyFunctionLogRetention807DFA90"
+    }
+  ],
+  "/fixFirstAgent-RegionalProxy-Secondary/LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8a/ServiceRole/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRole9741ECFB"
+    }
+  ],
+  "/fixFirstAgent-RegionalProxy-Secondary/ProxyApi/CloudWatchRole/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ProxyApiCloudWatchRole6287CBD0"
+    }
+  ],
+  "/fixFirstAgent-RegionalProxy-Secondary/ProxyApi/Deployment/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ProxyApiDeployment6107D4F325fd457150c20c00bfc4649ec57363f9"
+    }
+  ],
+  "/fixFirstAgent-RegionalProxy-Secondary/ProxyApi/DeploymentStage.v1/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ProxyApiDeploymentStagev1CC81822F"
+    }
+  ],
+  "/fixFirstAgent-RegionalProxy-Secondary/ProxyFunction/ServiceRole/DefaultPolicy/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ProxyFunctionServiceRoleDefaultPolicyC0E84FE7"
+    }
+  ],
+  "/fixFirstAgent-RegionalProxy-Secondary/LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8a/ServiceRole/DefaultPolicy/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRoleDefaultPolicyADDA7DEB"
+    }
+  ],
+  "/fixFirstAgent-RegionalProxy-Secondary/ProxyApi/Default/OPTIONS/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ProxyApiOPTIONSF54C92CA"
+    }
+  ],
+  "/fixFirstAgent-RegionalProxy-Secondary/ProxyApi/Default/invoke/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ProxyApiinvokeD608DA46"
+    }
+  ],
+  "/fixFirstAgent-RegionalProxy-Secondary/ProxyApi/Default/health/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ProxyApihealth5220A3AB"
+    }
+  ],
+  "/fixFirstAgent-RegionalProxy-Secondary/ProxyApi/Default/invoke/OPTIONS/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ProxyApiinvokeOPTIONS0CD83525"
+    }
+  ],
+  "/fixFirstAgent-RegionalProxy-Secondary/ProxyApi/Default/invoke/POST/ApiPermission.fixFirstAgentRegionalProxySecondaryProxyApi0169B316.POST..invoke": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ProxyApiinvokePOSTApiPermissionfixFirstAgentRegionalProxySecondaryProxyApi0169B316POSTinvoke48FFBE2A"
+    }
+  ],
+  "/fixFirstAgent-RegionalProxy-Secondary/ProxyApi/Default/invoke/POST/ApiPermission.Test.fixFirstAgentRegionalProxySecondaryProxyApi0169B316.POST..invoke": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ProxyApiinvokePOSTApiPermissionTestfixFirstAgentRegionalProxySecondaryProxyApi0169B316POSTinvoke1E2C4B0F"
+    }
+  ],
+  "/fixFirstAgent-RegionalProxy-Secondary/ProxyApi/Default/invoke/POST/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ProxyApiinvokePOSTACA9B8C5"
+    }
+  ],
+  "/fixFirstAgent-RegionalProxy-Secondary/ProxyApi/Default/health/OPTIONS/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ProxyApihealthOPTIONSF469747F"
+    }
+  ],
+  "/fixFirstAgent-RegionalProxy-Secondary/ProxyApi/Default/health/GET/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ProxyApihealthGETE6A1E381"
+    }
+  ]
+}

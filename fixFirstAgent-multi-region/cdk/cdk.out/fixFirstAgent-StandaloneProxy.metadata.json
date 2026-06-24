@@ -1,0 +1,164 @@
+{
+  "/fixFirstAgent-StandaloneProxy/InvokeUrl": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "InvokeUrl"
+    }
+  ],
+  "/fixFirstAgent-StandaloneProxy/HealthUrl": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "HealthUrl"
+    }
+  ],
+  "/fixFirstAgent-StandaloneProxy/BootstrapVersion": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "BootstrapVersion"
+    }
+  ],
+  "/fixFirstAgent-StandaloneProxy/CheckBootstrapVersion": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CheckBootstrapVersion"
+    }
+  ],
+  "/fixFirstAgent-StandaloneProxy/ProxyFunction/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ProxyFunction99E5E7D2"
+    }
+  ],
+  "/fixFirstAgent-StandaloneProxy/LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8a/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aFD4BFC8A"
+    }
+  ],
+  "/fixFirstAgent-StandaloneProxy/ProxyApi/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ProxyApi0DF2D7AE"
+    }
+  ],
+  "/fixFirstAgent-StandaloneProxy/ProxyApi/Account": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ProxyApiAccount987F032E"
+    }
+  ],
+  "/fixFirstAgent-StandaloneProxy/ProxyApi/Endpoint": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ProxyApiEndpoint2177970D"
+    }
+  ],
+  "/fixFirstAgent-StandaloneProxy/CDKMetadata/Default": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CDKMetadata"
+    }
+  ],
+  "/fixFirstAgent-StandaloneProxy/ProxyFunction/ServiceRole/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ProxyFunctionServiceRole74D3CF07"
+    }
+  ],
+  "/fixFirstAgent-StandaloneProxy/ProxyFunction/LogRetention/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ProxyFunctionLogRetention807DFA90"
+    }
+  ],
+  "/fixFirstAgent-StandaloneProxy/LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8a/ServiceRole/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRole9741ECFB"
+    }
+  ],
+  "/fixFirstAgent-StandaloneProxy/ProxyApi/CloudWatchRole/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ProxyApiCloudWatchRole6287CBD0"
+    }
+  ],
+  "/fixFirstAgent-StandaloneProxy/ProxyApi/Deployment/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ProxyApiDeployment6107D4F3ca323caf837ff7ffc2a17379596bff06"
+    }
+  ],
+  "/fixFirstAgent-StandaloneProxy/ProxyApi/DeploymentStage.v1/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ProxyApiDeploymentStagev1CC81822F"
+    }
+  ],
+  "/fixFirstAgent-StandaloneProxy/ProxyFunction/ServiceRole/DefaultPolicy/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ProxyFunctionServiceRoleDefaultPolicyC0E84FE7"
+    }
+  ],
+  "/fixFirstAgent-StandaloneProxy/LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8a/ServiceRole/DefaultPolicy/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRoleDefaultPolicyADDA7DEB"
+    }
+  ],
+  "/fixFirstAgent-StandaloneProxy/ProxyApi/Default/OPTIONS/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ProxyApiOPTIONSF54C92CA"
+    }
+  ],
+  "/fixFirstAgent-StandaloneProxy/ProxyApi/Default/invoke/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ProxyApiinvokeD608DA46"
+    }
+  ],
+  "/fixFirstAgent-StandaloneProxy/ProxyApi/Default/health/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ProxyApihealth5220A3AB"
+    }
+  ],
+  "/fixFirstAgent-StandaloneProxy/ProxyApi/Default/invoke/OPTIONS/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ProxyApiinvokeOPTIONS0CD83525"
+    }
+  ],
+  "/fixFirstAgent-StandaloneProxy/ProxyApi/Default/invoke/POST/ApiPermission.fixFirstAgentStandaloneProxyProxyApiA1BDBB4B.POST..invoke": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ProxyApiinvokePOSTApiPermissionfixFirstAgentStandaloneProxyProxyApiA1BDBB4BPOSTinvoke65F35EF3"
+    }
+  ],
+  "/fixFirstAgent-StandaloneProxy/ProxyApi/Default/invoke/POST/ApiPermission.Test.fixFirstAgentStandaloneProxyProxyApiA1BDBB4B.POST..invoke": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ProxyApiinvokePOSTApiPermissionTestfixFirstAgentStandaloneProxyProxyApiA1BDBB4BPOSTinvoke8B9BE1D8"
+    }
+  ],
+  "/fixFirstAgent-StandaloneProxy/ProxyApi/Default/invoke/POST/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ProxyApiinvokePOSTACA9B8C5"
+    }
+  ],
+  "/fixFirstAgent-StandaloneProxy/ProxyApi/Default/health/OPTIONS/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ProxyApihealthOPTIONSF469747F"
+    }
+  ],
+  "/fixFirstAgent-StandaloneProxy/ProxyApi/Default/health/GET/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ProxyApihealthGETE6A1E381"
+    }
+  ]
+}

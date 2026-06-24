@@ -1,0 +1,194 @@
+{
+  "/fixFirstAgent-RegionalProxy-Primary/ApiGatewayUrl": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ApiGatewayUrl"
+    }
+  ],
+  "/fixFirstAgent-RegionalProxy-Primary/CustomDomainRegionalTarget": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CustomDomainRegionalTarget"
+    }
+  ],
+  "/fixFirstAgent-RegionalProxy-Primary/CustomDomainHostedZoneId": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CustomDomainHostedZoneId"
+    }
+  ],
+  "/fixFirstAgent-RegionalProxy-Primary/BootstrapVersion": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "BootstrapVersion"
+    }
+  ],
+  "/fixFirstAgent-RegionalProxy-Primary/CheckBootstrapVersion": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CheckBootstrapVersion"
+    }
+  ],
+  "/fixFirstAgent-RegionalProxy-Primary/ProxyFunction/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ProxyFunction99E5E7D2"
+    }
+  ],
+  "/fixFirstAgent-RegionalProxy-Primary/LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8a/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aFD4BFC8A"
+    }
+  ],
+  "/fixFirstAgent-RegionalProxy-Primary/ProxyApi/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ProxyApi0DF2D7AE"
+    }
+  ],
+  "/fixFirstAgent-RegionalProxy-Primary/ProxyApi/Account": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ProxyApiAccount987F032E"
+    }
+  ],
+  "/fixFirstAgent-RegionalProxy-Primary/ProxyApi/Endpoint": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ProxyApiEndpoint2177970D"
+    }
+  ],
+  "/fixFirstAgent-RegionalProxy-Primary/CustomDomain/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CustomDomain21DD44B6"
+    }
+  ],
+  "/fixFirstAgent-RegionalProxy-Primary/BasePathMapping/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "BasePathMappingF35F2767"
+    }
+  ],
+  "/fixFirstAgent-RegionalProxy-Primary/SSM-ApiRegionalDomainName/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "SSMApiRegionalDomainNameE4BABBB1"
+    }
+  ],
+  "/fixFirstAgent-RegionalProxy-Primary/SSM-ApiRegionalHostedZoneId/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "SSMApiRegionalHostedZoneId368B9AB4"
+    }
+  ],
+  "/fixFirstAgent-RegionalProxy-Primary/CDKMetadata/Default": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CDKMetadata"
+    }
+  ],
+  "/fixFirstAgent-RegionalProxy-Primary/ProxyFunction/ServiceRole/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ProxyFunctionServiceRole74D3CF07"
+    }
+  ],
+  "/fixFirstAgent-RegionalProxy-Primary/ProxyFunction/LogRetention/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ProxyFunctionLogRetention807DFA90"
+    }
+  ],
+  "/fixFirstAgent-RegionalProxy-Primary/LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8a/ServiceRole/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRole9741ECFB"
+    }
+  ],
+  "/fixFirstAgent-RegionalProxy-Primary/ProxyApi/CloudWatchRole/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ProxyApiCloudWatchRole6287CBD0"
+    }
+  ],
+  "/fixFirstAgent-RegionalProxy-Primary/ProxyApi/Deployment/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ProxyApiDeployment6107D4F3e305874f75e1d43c71e827a992652c94"
+    }
+  ],
+  "/fixFirstAgent-RegionalProxy-Primary/ProxyApi/DeploymentStage.v1/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ProxyApiDeploymentStagev1CC81822F"
+    }
+  ],
+  "/fixFirstAgent-RegionalProxy-Primary/ProxyFunction/ServiceRole/DefaultPolicy/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ProxyFunctionServiceRoleDefaultPolicyC0E84FE7"
+    }
+  ],
+  "/fixFirstAgent-RegionalProxy-Primary/LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8a/ServiceRole/DefaultPolicy/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRoleDefaultPolicyADDA7DEB"
+    }
+  ],
+  "/fixFirstAgent-RegionalProxy-Primary/ProxyApi/Default/OPTIONS/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ProxyApiOPTIONSF54C92CA"
+    }
+  ],
+  "/fixFirstAgent-RegionalProxy-Primary/ProxyApi/Default/invoke/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ProxyApiinvokeD608DA46"
+    }
+  ],
+  "/fixFirstAgent-RegionalProxy-Primary/ProxyApi/Default/health/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ProxyApihealth5220A3AB"
+    }
+  ],
+  "/fixFirstAgent-RegionalProxy-Primary/ProxyApi/Default/invoke/OPTIONS/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ProxyApiinvokeOPTIONS0CD83525"
+    }
+  ],
+  "/fixFirstAgent-RegionalProxy-Primary/ProxyApi/Default/invoke/POST/ApiPermission.fixFirstAgentRegionalProxyPrimaryProxyApi23BD1405.POST..invoke": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ProxyApiinvokePOSTApiPermissionfixFirstAgentRegionalProxyPrimaryProxyApi23BD1405POSTinvoke396E28FB"
+    }
+  ],
+  "/fixFirstAgent-RegionalProxy-Primary/ProxyApi/Default/invoke/POST/ApiPermission.Test.fixFirstAgentRegionalProxyPrimaryProxyApi23BD1405.POST..invoke": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ProxyApiinvokePOSTApiPermissionTestfixFirstAgentRegionalProxyPrimaryProxyApi23BD1405POSTinvoke51D98646"
+    }
+  ],
+  "/fixFirstAgent-RegionalProxy-Primary/ProxyApi/Default/invoke/POST/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ProxyApiinvokePOSTACA9B8C5"
+    }
+  ],
+  "/fixFirstAgent-RegionalProxy-Primary/ProxyApi/Default/health/OPTIONS/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ProxyApihealthOPTIONSF469747F"
+    }
+  ],
+  "/fixFirstAgent-RegionalProxy-Primary/ProxyApi/Default/health/GET/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ProxyApihealthGETE6A1E381"
+    }
+  ]
+}
