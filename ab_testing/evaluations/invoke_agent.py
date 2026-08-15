@@ -5,6 +5,7 @@ Usage:
     python invoke_agent.py                    # 15 prompts from prompts.txt
     python invoke_agent.py --count 5          # first 5 only
     python invoke_agent.py --region us-east-1
+    python invoke_agent.py --endpoint DEV     # invoke via DEV endpoint
 
 Requires env vars: COGNITO_USERNAME, COGNITO_PASSWORD
 """
@@ -40,9 +41,9 @@ def get_cognito_token(client_id, username, password, region):
     return resp["AuthenticationResult"]["AccessToken"]
 
 
-def invoke(runtime_arn, session_id, prompt, token, region):
+def invoke(runtime_arn, session_id, prompt, token, region, endpoint="DEFAULT"):
     encoded_arn = urllib.parse.quote(runtime_arn, safe="")
-    url = f"https://bedrock-agentcore.{region}.amazonaws.com/runtimes/{encoded_arn}/invocations?qualifier=DEFAULT"
+    url = f"https://bedrock-agentcore.{region}.amazonaws.com/runtimes/{encoded_arn}/invocations?qualifier={endpoint}"
     req = urllib.request.Request(
         url,
         data=json.dumps({"prompt": prompt}).encode("utf-8"),
@@ -67,6 +68,7 @@ def invoke(runtime_arn, session_id, prompt, token, region):
 def main():
     parser = argparse.ArgumentParser(description="Send prompts to fixFirstAgent")
     parser.add_argument("--region", default=None)
+    parser.add_argument("--endpoint", default="DEFAULT", help="Endpoint qualifier (DEFAULT, DEV, PREPROD, PROD)")
     parser.add_argument("--count", type=int, default=15)
     parser.add_argument("--prompts-file", default=str(DEFAULT_PROMPTS_FILE))
     args = parser.parse_args()
@@ -85,13 +87,13 @@ def main():
     runtime_arn = params["agentcore-runtime-arn"]
     token = get_cognito_token(params["cognito-client-id"], username, password, region)
 
-    print(f"Runtime: {runtime_arn.split('/')[-1]}  |  Prompts: {len(prompts)}")
+    print(f"Runtime: {runtime_arn.split('/')[-1]}  |  Endpoint: {args.endpoint}  |  Prompts: {len(prompts)}")
     print()
 
     for i, prompt in enumerate(prompts):
         sid = f"eval-{uuid.uuid4()}"
         print(f"[{i+1}/{len(prompts)}] {prompt[:70]}")
-        resp = invoke(runtime_arn, sid, prompt, token, region)
+        resp = invoke(runtime_arn, sid, prompt, token, region, args.endpoint)
         snippet = json.dumps(resp, default=str)[:120] if isinstance(resp, dict) else str(resp)[:120]
         print(f"  -> {snippet}")
         print()
